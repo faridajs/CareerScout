@@ -1,0 +1,42 @@
+name: career_scout
+description: "A new Flutter project."
+
+assets:
+  - assets/logo.jpeg
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+
+dependencies:
+  flutter:
+
+    sdk: flutter
+    
+
+
+
+cupertino_icons: ^1.0.8
+google_generative_ai: ^0.4.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter_lints: ^4.0.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.jpeg" # Adjusted the path to include "assets/"
+
+flutter:
+
+
+  uses-material-design: true
+
+
+ 
