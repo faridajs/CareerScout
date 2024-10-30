@@ -102,6 +102,7 @@ Future<void> _sendMessage() async {
 class _JobSearchPageState extends State<JobSearchPage> {
   bool isWishedCompanies = true;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,32 +164,12 @@ class _JobSearchPageState extends State<JobSearchPage> {
                     child: Text('Wished Companies'),
                   ),
                 ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        isWishedCompanies = false;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          isWishedCompanies ? Colors.white : Colors.purple,
-                      foregroundColor:
-                          isWishedCompanies ? Colors.black : Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Text('All Companies'),
-                  ),
-                ),
+
+                
               ],
             ),
           ),
-
-          SizedBox(height: 20),
-
+  
           // Job Vacancies List
           Expanded(
             child: ListView(
@@ -296,6 +277,137 @@ class _JobSearchPageState extends State<JobSearchPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+
+class JobVacanciesPage extends StatefulWidget {
+  @override
+  _JobVacanciesPageState createState() => _JobVacanciesPageState();
+}
+
+class _JobVacanciesPageState extends State<JobVacanciesPage> {
+  bool showAllCompanies = true;
+
+  final List<Map<String, dynamic>> AllCompanies = [
+    {'name': 'Maybank', 'salary': 'RM 4000', 'role': 'Web Developer', 'rating': 5},
+    {'name': 'Lazada', 'salary': 'RM 2000', 'role': 'Web Developer', 'rating': 4},
+    {'name': 'Shopee', 'salary': 'RM 3000', 'role': 'Web Developer', 'rating': 5},
+    {'name': 'Bank Negara', 'salary': 'RM 3500', 'role': 'Web Developer', 'rating': 5},
+    {'name': 'Coffe Bean', 'salary': 'RM 1000', 'role': 'Waiter', 'rating': 5},
+    {'name': 'Lazada', 'salary': 'RM 2000', 'role': 'Designer', 'rating': 4},
+    {'name': 'Bank Negara', 'salary': 'RM 5000', 'role': 'Finance Manager', 'rating': 5},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        title: Text('Career Scout'),
+      ),
+      body: Column(
+        children: [
+          SizedBox(height: 20),
+          ToggleButtons(
+            borderRadius: BorderRadius.circular(20),
+            isSelected: [showAllCompanies, !showAllCompanies],
+            selectedColor: Colors.white,
+            fillColor: Colors.purple,
+            color: Colors.black,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text("All Companies"),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text("All Companies"),
+              ),
+            ],
+            onPressed: (index) {
+              setState(() {
+                showAllCompanies = index == 0;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+          Text(
+            'Job Vacancies',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.purple,
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: AllCompanies.length,
+              itemBuilder: (context, index) {
+                final company = AllCompanies[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: ListTile(
+                      leading: Icon(Icons.business, color: Colors.purple),
+                      title: Text(
+                        company['name'],
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Salary: ${company['salary']}'),
+                          Text(company['role']),
+                        ],
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.star, color: Colors.yellow),
+                          Text('${company['rating']}'),
+                          IconButton(
+                            icon: Icon(Icons.favorite_border, color: Colors.purple),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              onPressed: () {},
+              child: Text("View 20 Companies"),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'List'),
+          BottomNavigationBarItem(icon: Icon(Icons.description), label: 'CV Maker'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
       ),
     );
   }
